@@ -3,4 +3,4 @@ Images/
 .ipynb_checkpoints/
 readme.txt.bak
 all_freezed.h5
-
+*.h5
