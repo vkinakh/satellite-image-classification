@@ -1,3 +1,22 @@
+Experiments with classification satellite images using Neural Networks.
+
+Requirements:
+- python3
+- juputer notebook
+- tensorflow-gpu
+- keras
+- matplotlib
+- numpy
+
+Architectures used in experiments:
+- VGG16
+- VGG19
+- Xception
+- ResNet50
+- InceptionV3
+
+
+Data used:
 UC Merced Land Use Dataset
 
 October 28, 2010
