@@ -290,7 +290,6 @@ if __name__ == "__main__":
                                                      filename="inceptionV3_lats4.h5")
     plot_training_process(history_inceptionV3_retrainable_layers)
     show_result(model=model_trained_inceptionV3_retrainable_layers, image_size=image_size, test_folder=test_folder)
-    show_result(model=model_trained_inceptionV3_retrainable_layers, image_size=image_size, test_folder=test_folder)
 
 
 
