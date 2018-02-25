@@ -1,9 +1,7 @@
 import matplotlib.pyplot as plt
 import os
 import numpy as np
-
 import cv2
-
 from keras.applications import VGG16, VGG19, Xception, ResNet50, InceptionV3, InceptionResNetV2, MobileNet
 from keras import models
 from keras import layers
@@ -34,7 +32,6 @@ def rotate_spatial_images(folders):
 
 
 def create_model_with_additional_layers(model_name, image_size):
-    #Load the VGG model
     if model_name == "vgg16":
         pretrained_model = VGG16(weights='imagenet', include_top=False, input_shape=(image_size, image_size, 3))
     elif model_name == "vgg19":
@@ -111,8 +108,6 @@ def create_model_with_retrainable_layers(model_name, image_size):
     return model
 
 
-
-
 def train_model(model, train_folder, test_folder, train_batchsize, val_batchsize, image_size, filename,
                 epochs = 3,classmode='categorical', lr=1e-4):
     # No Data augmentation
@@ -173,6 +168,7 @@ def plot_training_process(history):
 
     plt.show()
 
+from random import randint
 
 def show_result(model, test_folder, image_size, classmode='categorical'):
     validation_datagen = ImageDataGenerator(rescale=1. / 255)
@@ -207,21 +203,22 @@ def show_result(model, test_folder, image_size, classmode='categorical'):
     print("No of errors = {}/{}".format(len(errors), validation_generator.samples))
 
     # Show the errors
-    # for i in range(len(errors)):
-    #     pred_class = np.argmax(predictions[errors[i]])
-    #     pred_label = idx2label[pred_class]
-    #
-    #     title = 'Original label:{}, Prediction :{}, confidence : {:.3f}'.format(
-    #         fnames[errors[i]].split('/')[0],
-    #         pred_label,
-    #         predictions[errors[i]][pred_class])
-    #
-    #     original = load_img('{}/{}'.format(test_folder, fnames[errors[i]]))
-    #     plt.figure(figsize=[7, 7])
-    #     plt.axis('off')
-    #     plt.title(title)
-    #     plt.imshow(original)
-    #     plt.show()
+    for i in range(5):
+        ind = randint(0, len(errors) - 1)
+        pred_class = np.argmax(predictions[errors[ind]])
+        pred_label = idx2label[pred_class]
+
+        title = 'Original label:{}, Prediction :{}, confidence : {:.3f}'.format(
+            fnames[errors[i]].split('/')[0],
+            pred_label,
+            predictions[errors[i]][pred_class])
+
+        original = load_img('{}/{}'.format(test_folder, fnames[errors[i]]))
+        plt.figure(figsize=[7, 7])
+        plt.axis('off')
+        plt.title(title)
+        plt.imshow(original)
+        plt.show()
 
 if __name__ == "__main__":
     # Try VGG 16
